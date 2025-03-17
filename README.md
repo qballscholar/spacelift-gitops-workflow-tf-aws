@@ -1,2 +1,1 @@
-# spacelift-gitops-workflow
-GitOps workflow with Spacelift
+# Spacelift GitOps Workflow
