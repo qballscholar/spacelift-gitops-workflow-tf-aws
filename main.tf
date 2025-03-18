@@ -18,7 +18,7 @@ resource "kubernetes_deployment" "nginx" {
   }
 
   spec {
-    replicas = 1
+    replicas = 2
 
     selector {
       match_labels = {
@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "nginx" {
 
       spec {
         container {
-          image = "nginx:1.21.6"
+          image = "nginx:1.23.0"
           name  = "nginx"
 
           port {
