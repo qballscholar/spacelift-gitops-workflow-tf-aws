@@ -1,11 +1,10 @@
 variable "minikube_ip" {}
-variable "minikube_ca_crt" {}
 variable "minikube_token" {}
 
 provider "kubernetes" {
   config_path = "/mnt/workspace/kubeconfig"
   host                   = "https://${var.minikube_ip}:8443"
-  cluster_ca_certificate = base64decode(var.minikube_ca_crt)
+  cluster_ca_certificate = filebase64("/mnt/workspace/ca.crt")
   token                  = var.minikube_token
 }
 
