@@ -7,7 +7,6 @@ provider "kubernetes" {
   cluster_ca_certificate = filebase64("/mnt/workspace/ca.crt")
   token                  = var.minikube_token
 }
-
 resource "kubernetes_namespace" "demo" {
   metadata {
     name = "demo"
