@@ -1,5 +1,5 @@
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  config_path = "/mnt/workspace/kubeconfig"
 }
 
 resource "kubernetes_namespace" "demo" {
