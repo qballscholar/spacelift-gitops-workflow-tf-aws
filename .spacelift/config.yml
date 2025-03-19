@@ -1,3 +1,4 @@
+---
 version: "1"
 
 policies:
@@ -5,7 +6,6 @@ policies:
     type: plan
     body: |
       package spacelift
-      
       denied[msg] {
         resource := input.terraform.resource_changes[_]
         resource.type == "aws_instance"
@@ -20,7 +20,6 @@ stacks:
     project_root: infra/vpc
     autodeploy: true
     worker_pool: self-hosted
-  
   - name: eks
     repository: qballscholar/spacelift-gitops-workflow
     branch: main

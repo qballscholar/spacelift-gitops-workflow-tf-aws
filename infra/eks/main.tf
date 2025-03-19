@@ -1,7 +1,7 @@
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
-    bucket = "your-terraform-state-bucket"
+    bucket = "tf-state-bucket-spacelift"
     key    = "spacelift/terraform.tfstate"
     region = "us-east-1"
   }
