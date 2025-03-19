@@ -14,13 +14,13 @@ policies:
       }
 
 stacks:
-  - name: vpc
+  vpc:
     repository: qballscholar/spacelift-gitops-workflow
     branch: main
     project_root: infra/vpc
     autodeploy: true
     worker_pool: self-hosted
-  - name: eks
+  eks:
     repository: qballscholar/spacelift-gitops-workflow
     branch: main
     project_root: infra/eks
