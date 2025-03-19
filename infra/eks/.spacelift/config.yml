@@ -1,0 +1,37 @@
+version: "1"
+
+policies:
+  - name: enforce-t2-micro
+    type: plan
+    body: |
+      package spacelift
+      
+      denied[msg] {
+        resource := input.terraform.resource_changes[_]
+        resource.type == "aws_instance"
+        resource.change.after.instance_type != "t2.micro"
+        msg = "Only t2.micro instances are allowed"
+      }
+
+stacks:
+  - name: vpc
+    repository: qballscholar/spacelift-gitops-workflow
+    branch: main
+    project_root: infra/vpc
+    autodeploy: true
+    worker_pool: self-hosted
+  
+  - name: eks
+    repository: qballscholar/spacelift-gitops-workflow
+    branch: main
+    project_root: infra/eks
+    autodeploy: true
+    worker_pool: self-hosted
+    depends_on: ["vpc"]
+
+worker_pools:
+  - name: self-hosted
+    executor_type: kubernetes
+    config:
+      image: spacelift/default:latest
+      namespace: spacelift-worker-pool
