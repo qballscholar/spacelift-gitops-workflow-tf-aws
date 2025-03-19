@@ -18,13 +18,13 @@ stacks:
     repository: qballscholar/spacelift-gitops-workflow
     branch: main
     project_root: infra/vpc
-    autodeploy: true
+    autodeploy: false
     worker_pool: self-hosted
   eks:
     repository: qballscholar/spacelift-gitops-workflow
     branch: main
     project_root: infra/eks
-    autodeploy: true
+    autodeploy: false
     worker_pool: self-hosted
     depends_on: ["vpc"]
 
