@@ -6,12 +6,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-  # Each stack needs its own state file
-  backend "s3" {
-    bucket = "tf-state-bucket-spacelift"
-    key    = "spacelift/vpc/terraform.tfstate"
-    region = "us-east-1"
-  }
+  # No backend configuration - Spacelift manages state
 }
 
 provider "aws" {
@@ -36,10 +31,8 @@ module "vpc" {
     Environment = "dev"
     Terraform   = "true"
     GitOps      = "true"
-    ManagedBy   = "spacelift"
   }
   
-  # Enhanced tags for EKS integration
   public_subnet_tags = {
     "kubernetes.io/role/elb"                      = "1"
     "kubernetes.io/cluster/spacelift-eks-cluster" = "shared"

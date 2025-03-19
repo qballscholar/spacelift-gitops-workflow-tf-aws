@@ -6,25 +6,22 @@ terraform {
       version = "~> 4.0"
     }
   }
-  # EKS stack needs its own state file
-  backend "s3" {
-    bucket = "tf-state-bucket-spacelift"
-    key    = "spacelift/eks/terraform.tfstate"
-    region = "us-east-1"
-  }
+  # No backend configuration - Spacelift manages state
 }
 
 provider "aws" {
   region = "us-east-1"
 }
 
-# Reference VPC state - note the different key path
+# When using Spacelift state management, reference remote state from another stack with:
 data "terraform_remote_state" "vpc" {
-  backend = "s3"
+  backend = "remote"
   config = {
-    bucket = "tf-state-bucket-spacelift"
-    key    = "spacelift/vpc/terraform.tfstate"
-    region = "us-east-1"
+    hostname = "spacelift.io"
+    organization = "ralphquick" # Replace with your account name
+    workspaces = {
+      name = "vpc" # The name of your VPC stack in Spacelift
+    }
   }
 }
 
@@ -35,7 +32,6 @@ module "eks" {
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.24"
   
-  # Reference outputs from VPC state
   vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
   
@@ -62,7 +58,6 @@ module "eks" {
     Environment = "dev"
     Terraform   = "true"
     GitOps      = "true"
-    ManagedBy   = "spacelift"
   }
 }
 

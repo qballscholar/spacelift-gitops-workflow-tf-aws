@@ -10,13 +10,8 @@ terraform {
   }
   
   # NOTE: Do not include backend configuration here
-  # Backend is configured in each stack's directory
+  # Backend is managed by Spacelift.io
 }
-
-provider "aws" {
-  region = "us-east-1"
-}
-
 
 provider "aws" {
   region = "us-east-1"
