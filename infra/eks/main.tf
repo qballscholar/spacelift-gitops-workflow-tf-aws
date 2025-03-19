@@ -1,8 +1,29 @@
+terraform {
+  required_version = "~> 1.5.7"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+  # EKS stack needs its own state file
+  backend "s3" {
+    bucket = "tf-state-bucket-spacelift"
+    key    = "spacelift/eks/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+# Reference VPC state - note the different key path
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
     bucket = "tf-state-bucket-spacelift"
-    key    = "spacelift/terraform.tfstate"
+    key    = "spacelift/vpc/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -14,6 +35,7 @@ module "eks" {
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.24"
   
+  # Reference outputs from VPC state
   vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
   
@@ -40,6 +62,7 @@ module "eks" {
     Environment = "dev"
     Terraform   = "true"
     GitOps      = "true"
+    ManagedBy   = "spacelift"
   }
 }
 
