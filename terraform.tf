@@ -8,7 +8,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-  
+
   # NOTE: Do not include backend configuration here
   # Backend is managed by Spacelift.io
 }
