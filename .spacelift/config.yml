@@ -1,0 +1,56 @@
+version: "1"
+
+# Define policies for infrastructure governance
+policies:
+  - name: enforce-resource-tagging
+    type: plan
+    body: |
+      package spacelift
+
+      # Warn if resources are missing required tags
+      warn[msg] {
+        resource := input.terraform.resource_changes[_]
+        tags := resource.change.after.tags
+        not tags.Environment
+        msg := sprintf("Resource %s is missing the Environment tag", [resource.address])
+      }
+
+# Define stacks for infrastructure components
+stacks:
+  vpc:
+    repository: qballscholar/spacelift-gitops-workflow
+    branch: main
+    project_root: infra/vpc
+    autodeploy: false
+    labels:
+      - key: feature:enable_git_checkout
+        value: "true"
+    worker_pool: public
+    administrative: true
+    description: "VPC Infrastructure Stack"
+    before_init:
+      - terraform --version
+    
+  eks:
+    repository: qballscholar/spacelift-gitops-workflow
+    branch: main
+    project_root: infra/eks
+    autodeploy: false
+    labels:
+      - key: feature:enable_git_checkout
+        value: "true"
+    worker_pool: public
+    administrative: true
+    description: "EKS Cluster Stack"
+    depends_on: ["vpc"]
+    before_init:
+      - terraform --version
+
+# Configure environment variables for all stacks
+environment:
+  AWS_REGION: us-east-1
+
+# Configure the worker pool
+worker_pools:
+  - name: public
+    executor_type: public

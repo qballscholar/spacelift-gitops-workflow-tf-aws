@@ -12,18 +12,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# When using Spacelift state management, reference remote state from another stack with:
-data "terraform_remote_state" "vpc" {
-  backend = "remote"
-  config = {
-    hostname = "spacelift.io"
-    organization = "ralphquick" # Replace with your account name
-    workspaces = {
-      name = "vpc" # The name of your VPC stack in Spacelift
-    }
-  }
-}
-
+# Spacelift automatically shares state between stacks
+# No need for terraform_remote_state data source
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.0.0"
@@ -31,8 +21,8 @@ module "eks" {
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.24"
   
-  vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
-  subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
+  vpc_id     = var.vpc_id
+  subnet_ids = var.private_subnet_ids
   
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
@@ -66,4 +56,15 @@ output "cluster_endpoint" {
 
 output "cluster_name" {
   value = module.eks.cluster_name
+}
+
+# Define variables for VPC and subnet IDs
+variable "vpc_id" {
+  description = "The ID of the VPC"
+  type        = string
+}
+
+variable "private_subnet_ids" {
+  description = "List of IDs of private subnets"
+  type        = list(string)
 }
