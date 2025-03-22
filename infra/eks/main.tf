@@ -25,6 +25,8 @@ module "eks" {
       
       instance_types = ["t3.medium"]
       capacity_type  = "ON_DEMAND"
+      create_kms_key = false
+      manage_aws_auth_configmap = true
     }
   }
   
