@@ -1,7 +1,7 @@
 # No backend configuration - Spacelift manages state
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.19.0"
+  version = "~> 5.0"
   
   name = "spacelift-eks-vpc"
   cidr = "10.0.0.0/16"
@@ -12,6 +12,7 @@ module "vpc" {
   
   enable_nat_gateway = true
   single_nat_gateway = true
+  enable_dns_hostnames = true
   
   tags = {
     Environment = "dev"
