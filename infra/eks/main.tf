@@ -4,7 +4,7 @@ module "eks" {
   version = "19.0.0"
   
   cluster_name    = "spacelift-eks-cluster"
-  cluster_version = "1.24"
+  cluster_version = "1.28"
   
   vpc_id     = var.vpc_id
   subnet_ids = var.private_subnet_ids
