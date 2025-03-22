@@ -1,17 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-  # No backend configuration - Spacelift manages state
-}
-
-provider "aws" {
-  region = "us-east-1"
-}
-
+# No backend configuration - Spacelift manages state
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.19.0"

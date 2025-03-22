@@ -1,19 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-  # No backend configuration - Spacelift manages state
-}
-
-provider "aws" {
-  region = "us-east-1"
-}
-
-# Spacelift automatically shares state between stacks
-# No need for terraform_remote_state data source
+# No backend configuration - Spacelift manages state
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.0.0"
@@ -52,19 +37,21 @@ module "eks" {
 
 output "cluster_endpoint" {
   value = module.eks.cluster_endpoint
+  description = "EKS Cluster API Endpoint"
 }
 
 output "cluster_name" {
   value = module.eks.cluster_name
-}
+  description = "EKS Cluster Name"
+  }
 
 # Define variables for VPC and subnet IDs
 variable "vpc_id" {
-  description = "The ID of the VPC"
+  description = "VPC ID from VPC stack"
   type        = string
 }
 
 variable "private_subnet_ids" {
-  description = "List of IDs of private subnets"
+  description = "Private subnet IDs from VPC stack"
   type        = list(string)
 }
