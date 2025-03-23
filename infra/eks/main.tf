@@ -53,10 +53,6 @@ module "eks" {
     Terraform   = "true"
     GitOps      = "true"
   }
-
-    lifecycle {
-    ignore_changes = [kms_key_id]
-  }
 }
 
 output "cluster_endpoint" {
