@@ -8,10 +8,13 @@ module "eks" {
 
   # Use AWS-managed key for EKS
   create_kms_key = false
+
+   # Use AWS-managed encryption
   cluster_encryption_config = {
     provider_key_arn = "arn:aws:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alias/aws/eks"
     resources        = ["secrets"]
   }
+
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
   
