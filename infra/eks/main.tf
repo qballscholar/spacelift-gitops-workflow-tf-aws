@@ -9,6 +9,9 @@ module "eks" {
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.29"
 
+  cluster_enabled_log_types = []
+  create_cloudwatch_log_group = false
+
   # Use AWS-managed key for EKS
   create_kms_key = false
 
