@@ -4,7 +4,7 @@ module "eks" {
   version = "~> 20.31.0"
   
   cluster_name    = "spacelift-eks-cluster"
-  cluster_version = "1.28"
+  cluster_version = "1.29"
 
   # Use AWS-managed key for EKS
   create_kms_key = false
