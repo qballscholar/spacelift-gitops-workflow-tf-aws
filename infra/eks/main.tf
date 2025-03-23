@@ -14,8 +14,11 @@ module "eks" {
   create_cloudwatch_log_group = false
 
   # Use AWS-managed key for EKS
+  cluster_encryption_config = {
+  resources        = ["secrets"]
+  provider_key_arn = "alias/aws/eks"  # Use AWS-managed key
+  }
   create_kms_key = false
-  # cluster_encryption_config = {}
 
   # Use variables passed from root module
   vpc_id     = var.vpc_id
