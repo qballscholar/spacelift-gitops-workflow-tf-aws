@@ -1,3 +1,6 @@
+data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
+
 # No backend configuration - Spacelift manages state
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -11,12 +14,13 @@ module "eks" {
 
    # Use AWS-managed encryption
   cluster_encryption_config = {
-    provider_key_arn = "arn:aws:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alias/aws/eks"
+    provider_key_arn = "alias/aws/eks"  # Simplified ARN format
     resources        = ["secrets"]
   }
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  # Use variables passed from root module
+  vpc_id     = var.vpc_id
+  subnet_ids = var.subnet_ids
   
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true

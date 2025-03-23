@@ -27,7 +27,7 @@ module "vpc" {
 }
 
 module "eks" {
-  source  = "./infra/eks"
-  vpc_id  = module.vpc.id
+  source     = "./infra/eks"
+  vpc_id     = module.vpc.vpc_id  # Changed from module.vpc.id
   subnet_ids = module.vpc.private_subnets
 }
