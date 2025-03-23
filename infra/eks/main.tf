@@ -13,7 +13,6 @@ module "eks" {
   create_cloudwatch_log_group = false
 
 # Use AWS-managed key for EKS
-create_kms_key = false
 cluster_encryption_config = {
   resources = ["secrets"]
 }
