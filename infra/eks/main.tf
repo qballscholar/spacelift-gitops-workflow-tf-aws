@@ -7,7 +7,7 @@ module "eks" {
   version = "20.31.6"
   
   cluster_name    = "spacelift-eks-cluster"
-  cluster_version = "1.29"
+  cluster_version = "1.30"
 
   # Disable log group creation
   cluster_enabled_log_types = []
