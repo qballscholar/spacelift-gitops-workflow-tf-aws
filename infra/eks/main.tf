@@ -12,10 +12,9 @@ module "eks" {
   cluster_enabled_log_types = []
   create_cloudwatch_log_group = false
 
-# Use AWS-managed key for EKS
-cluster_encryption_config = {
-  resources = ["secrets"]
-}
+  # Use AWS-managed key for EKS
+  create_kms_key = false
+  cluster_encryption_config = {}
 
   # Use variables passed from root module
   vpc_id     = var.vpc_id
@@ -53,6 +52,10 @@ cluster_encryption_config = {
     Environment = "dev"
     Terraform   = "true"
     GitOps      = "true"
+  }
+
+    lifecycle {
+    ignore_changes = [kms_key_id]
   }
 }
 
