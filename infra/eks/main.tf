@@ -4,7 +4,7 @@ data "aws_caller_identity" "current" {}
 # No backend configuration - Spacelift manages state
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "20.31.6"
   
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.30"
@@ -14,11 +14,17 @@ module "eks" {
   create_cloudwatch_log_group = false
 
   # Use AWS-managed key for EKS
-  cluster_encryption_config = {
-  resources        = ["secrets"]
-  provider_key_arn = "alias/aws/eks"  # Use AWS-managed key
-  }
   create_kms_key = false
+  cluster_encryption_config = {}
+
+  # IAM role configuration
+  # Disable unnecessary policy management 
+  create_iam_role          = true
+  iam_role_use_name_prefix = false
+  iam_role_name            = "spacelift-eks-cluster-role"
+  iam_role_additional_policies = {
+    AmazonEKSClusterPolicy = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  }
 
   # Use variables passed from root module
   vpc_id     = var.vpc_id
@@ -27,15 +33,7 @@ module "eks" {
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
   
-  # IAM role configuration
-  create_iam_role = true
-  iam_role_name   = "spacelift-eks-cluster-role"
-  iam_role_use_name_prefix = false
-
-  # Use managed policy only to avoid custom policy creation errors
-  iam_role_additional_policies = {
-    additional = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  }
+ 
 
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"
