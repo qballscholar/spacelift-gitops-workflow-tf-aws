@@ -1,7 +1,7 @@
 # No backend configuration - Spacelift manages state
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.0"
+  version = "5.19.0"
   
   name = "spacelift-eks-vpc"
   cidr = "10.0.0.0/16"
