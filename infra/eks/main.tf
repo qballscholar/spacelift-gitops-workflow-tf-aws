@@ -1,7 +1,7 @@
 # No backend configuration - Spacelift manages state
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.31"
+  version = "~> 20.31.0"
   
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.28"
