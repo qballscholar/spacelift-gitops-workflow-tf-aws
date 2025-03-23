@@ -9,6 +9,7 @@ module "eks" {
   cluster_name    = "spacelift-eks-cluster"
   cluster_version = "1.29"
 
+  # Disable log group creation
   cluster_enabled_log_types = []
   create_cloudwatch_log_group = false
 
