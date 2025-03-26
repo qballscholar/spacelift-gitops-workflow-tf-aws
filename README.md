@@ -4,11 +4,7 @@
 
 ## AWS EKS Infrastructure with Terraform
 
-<<<<<<< HEAD
 This repository contains Terraform templates designed to provision an Amazon Elastic Kubernetes Service (EKS) infrastructure on AWS. The modular architecture allows for easy deployment and management of scalable, secure Kubernetes clusters.
-=======
-This repository contains Terraform templates designed to provision a production-ready Amazon Elastic Kubernetes Service (EKS) infrastructure on AWS. The modular architecture allows for easy deployment and management of scalable, secure Kubernetes clusters.
->>>>>>> d6b0e8aaedf7b0d0c57570891bb5abbf79e343ed
 
 ## Repository Structure
 
@@ -17,7 +13,6 @@ The repository is organized in a modular fashion:
 - **Root directory**: Contains the main Terraform configuration files and variables
 - **vpc/**: Module for creating and configuring the Virtual Private Cloud infrastructure
 - **eks/**: Module for provisioning and configuring the EKS cluster and node groups
-
 
 ## Infrastructure Components
 
@@ -44,7 +39,6 @@ This EKS infrastructure supports a wide range of containerized applications:
 - **Serverless Applications**: Can be configured to work with AWS Fargate for serverless container execution.
 - **Hybrid/Multi-Cloud Deployments**: Compatible with EKS Anywhere for consistent operation across environments.
 
-
 ## Who Is This Project For?
 
 This project is ideal for:
@@ -55,14 +49,12 @@ This project is ideal for:
 - **Organizations Migrating to Kubernetes**: Companies looking to adopt container orchestration with proper AWS integration.
 - **Development Teams**: Groups that need a consistent, reproducible Kubernetes environment for application deployment.
 
-
 ## Prerequisites
 
 - AWS account with appropriate permissions
 - Terraform (version 1.0+) installed
 - AWS CLI configured with appropriate credentials
 - Basic understanding of Kubernetes and AWS services
-
 
 ## Getting Started
 
@@ -102,7 +94,6 @@ terraform apply
 ```bash
 aws eks update-kubeconfig --name <cluster-name> --region <region>
 ```
-
 
 ## Cost Considerations
 
