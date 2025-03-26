@@ -4,7 +4,11 @@
 
 ## AWS EKS Infrastructure with Terraform
 
+<<<<<<< HEAD
 This repository contains Terraform templates designed to provision an Amazon Elastic Kubernetes Service (EKS) infrastructure on AWS. The modular architecture allows for easy deployment and management of scalable, secure Kubernetes clusters.
+=======
+This repository contains Terraform templates designed to provision a production-ready Amazon Elastic Kubernetes Service (EKS) infrastructure on AWS. The modular architecture allows for easy deployment and management of scalable, secure Kubernetes clusters.
+>>>>>>> d6b0e8aaedf7b0d0c57570891bb5abbf79e343ed
 
 ## Repository Structure
 
