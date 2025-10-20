@@ -20,6 +20,7 @@ This is a comprehensive Terraform-based infrastructure solution that provisions 
 - **Production Workload Hosting**: Run mission-critical applications with high availability across multiple Availability Zones
 - **Serverless Container Execution**: Leverage AWS Fargate for serverless Kubernetes workloads without managing EC2 instances
 
+## **POC Video Demo**: https://youtu.be/kZsZQlX9OF4?si=cp_f56E-Z_DfwJpx
 
 ## **Architecture Overview**
 
@@ -217,7 +218,7 @@ kubectl get pods --all-namespaces
 
 This project provides a complete foundation for modern Kubernetes infrastructure management, combining the power of Terraform, AWS EKS, and Spacelift's GitOps automation to deliver a production-ready solution that scales with your organization's needs.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kZsZQlX9OF4?si=NQkGdHrxmqKQMFiI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 
 <div style="text-align: center">⁂</div>
 
